@@ -1,0 +1,20 @@
+name: API Tests  # Name of the GitHub Actions Workflow
+
+on:
+  push:
+    branches:
+      - main  # Run the tests whenever code is pushed to the "main" branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # The virtual machine to run tests
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2  # Clones the repository code
+
+      - name: Install Newman
+        run: npm install -g newman  # Installs Newman CLI
+
+      - name: Run API Tests
+        run: newman run api_automation.json -r cli,html  # Runs the Postman collection
