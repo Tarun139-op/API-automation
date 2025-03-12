@@ -26,3 +26,11 @@ jobs:
         with:
           name: API Test Report
           path: test-report.html
+
+     - name: Send Slack Notification on Failure
+         if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "🚨 API Tests Failed! Check GitHub Actions: https://github.com/YOUR-USERNAME/YOUR-REPO/actions"
+          }' https://hooks.slack.com/services/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
+
