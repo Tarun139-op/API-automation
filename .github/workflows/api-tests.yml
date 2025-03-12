@@ -18,3 +18,4 @@ jobs:
 
       - name: Run API Tests
         run: newman run api_automation.json -r cli,html  # Runs the Postman collection
+
