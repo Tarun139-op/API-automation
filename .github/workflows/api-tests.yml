@@ -32,4 +32,4 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "🚨 API Tests Failed! Check GitHub Actions: https://github.com/Tarun139-op/API-automation/actions"
-          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+          }' https://hooks.slack.com/services/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
