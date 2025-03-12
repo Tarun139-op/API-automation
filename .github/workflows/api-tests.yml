@@ -1,21 +1,28 @@
-name: API Tests  # Name of the GitHub Actions Workflow
+name: API Tests
 
 on:
-  push:
-    branches:
-      - main  # Run the tests whenever code is pushed to the "main" branch
+  schedule:
+    - cron: "0 0 * * *"  # Run tests every day at midnight UTC
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # The virtual machine to run tests
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2  # Clones the repository code
+        uses: actions/checkout@v2
 
-      - name: Install Newman
-        run: npm install -g newman  # Installs Newman CLI
-#nothing is here
-      - name: Run API Tests
-        run: newman run api_automation.json -r cli,html  # Runs the Postman collection
+      - name: Install Newman and htmlextra Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
 
+      - name: Run API Tests with htmlextra Report
+        run: |
+          newman run api_automation.json -r htmlextra --reporter-htmlextra-export test-report.html
+
+      - name: Upload Test Report as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: API Test Report
+          path: test-report.html
