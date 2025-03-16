@@ -20,12 +20,3 @@ jobs:
       - name: Run API Tests with htmlextra Report
         run: |
           newman run api_automation.json -r htmlextra --reporter-htmlextra-export test-report.html
-
-      - name: Send Slack Notification on Failure
-        if: failure()
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{
-            "text": "🚨 API Tests Failed! Check GitHub Actions: https://github.com/Tarun139-op/API-automation/actions"
-          }' https://hooks.slack.com/services/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
-
-          
