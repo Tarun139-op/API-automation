@@ -21,12 +21,6 @@ jobs:
         run: |
           newman run api_automation.json -r htmlextra --reporter-htmlextra-export test-report.html
 
-      - name: Upload Test Report as Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: API Test Report
-          path: test-report.html
-
       - name: Send Slack Notification on Failure
         if: failure()
         run: |
