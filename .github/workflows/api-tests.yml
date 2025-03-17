@@ -17,6 +17,11 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
 
+      - name: Verify Installation
+        run: |
+          newman -v
+          npm list -g newman-reporter-htmlextra
+
       - name: Run API Tests with htmlextra Report
         run: |
           newman run api_automation.json -r htmlextra --reporter-htmlextra-export test-report.html
